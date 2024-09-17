@@ -23,17 +23,17 @@ public class Ball : MonoBehaviour
     {  
         if (Math.Abs(rb.velocity.x) == 0.0f)
         {
-            rb.velocity = new Vector3(0.1f, rb.velocity.y,rb.velocity.z);
+            rb.velocity = new Vector3(1.0f, rb.velocity.y,rb.velocity.z);
         }
         if (Math.Abs(rb.velocity.y) == 0.0f)
         {
-            rb.velocity = new Vector3(rb.velocity.x,0.1f, rb.velocity.z);
+            rb.velocity = new Vector3(rb.velocity.x,1.0f, rb.velocity.z);
         }
-        if (Math.Abs(rb.velocity.x) < 1.5f)
+        if (Math.Abs(rb.velocity.x) < 15.0f)
         {
             rb.velocity = new Vector3(2 * rb.velocity.x, rb.velocity.y,rb.velocity.z);
         }
-        if (Math.Abs(rb.velocity.y) < 1.5f)
+        if (Math.Abs(rb.velocity.y) < 15.0f)
         {
             rb.velocity = new Vector3(rb.velocity.x, 2 * rb.velocity.y,rb.velocity.z);
         }
