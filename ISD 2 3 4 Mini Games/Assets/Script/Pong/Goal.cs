@@ -21,6 +21,6 @@ public class Goal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.CompareTag("Ball")) return;
-        GameManager.Instance.PlayerScored(isPlayer1Goal ? "Player 2" : "Player 1");
+        PongGameManager.Instance.PlayerScored(isPlayer1Goal ? "Player 2" : "Player 1");
     }
 }
