@@ -42,7 +42,9 @@ public class PongGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("Pong Game Manager Start");
+        var players = GameManager.Instance.Players;
+        Debug.Log("Configuring for " + players + " players");
     }
 
     // Update is called once per frame
