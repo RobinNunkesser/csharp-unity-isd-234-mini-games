@@ -7,8 +7,9 @@ namespace Script
 {
     public class GameManager : MonoBehaviour
     {
-        private ToggleGroup _gameTimeToggleGroup;
-        private ToggleGroup _playersToggleGroup;
+        public ToggleGroup gameTimeToggleGroup;
+        public ToggleGroup playersToggleGroup;
+        public ToggleGroup gameToggleGroup;
 
         public int Players { get; private set; } = 2;
         public int PlayTime { get; private set; } = 30;
@@ -31,12 +32,6 @@ namespace Script
         // Start is called before the first frame update
         private void Start()
         {
-            Debug.Log("Game Manager Start");
-            //_toggleGroup = GetComponent<ToggleGroup>();
-            _playersToggleGroup = GameObject.Find("PlayersToggleGroup")
-                .GetComponent<ToggleGroup>();
-            _gameTimeToggleGroup = GameObject.Find("PlayTimeToggleGroup")
-                .GetComponent<ToggleGroup>();
         }
 
         // Update is called once per frame
@@ -49,7 +44,7 @@ namespace Script
             Debug.Log("Play Game");
 
             var activePlayersToggle =
-                _playersToggleGroup.ActiveToggles().FirstOrDefault();
+                playersToggleGroup.ActiveToggles().FirstOrDefault();
             Players = activePlayersToggle?.name switch
             {
                 "TwoPlayerToggle" => 2,
@@ -60,7 +55,7 @@ namespace Script
                 .GetComponentInChildren<Text>().text);
 
             var activePlayTimeToggle =
-                _gameTimeToggleGroup.ActiveToggles().FirstOrDefault();
+                gameTimeToggleGroup.ActiveToggles().FirstOrDefault();
             PlayTime = activePlayTimeToggle?.name switch
             {
                 "30PlayTimeToggle" => 30,
@@ -73,7 +68,15 @@ namespace Script
             Debug.Log(activePlayTimeToggle.name + " _ " + activePlayTimeToggle
                 .GetComponentInChildren<Text>().text);
 
-            SceneManager.LoadScene(1);
+            var activeGameToggle =
+                gameToggleGroup.ActiveToggles().FirstOrDefault();
+            var game = activeGameToggle?.name switch
+            {
+                "PongToggle" => 1,
+                _ => 1
+            };
+
+            SceneManager.LoadScene(game);
         }
     }
 }
