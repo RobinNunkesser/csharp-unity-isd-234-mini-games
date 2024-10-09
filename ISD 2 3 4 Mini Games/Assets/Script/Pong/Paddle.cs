@@ -1,38 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour
+namespace Script.Pong
 {
-    public bool isPlayer1;
-
-    public float speed;
-    public Rigidbody rb;
-    public Vector3 startPosition;
-
-    private float movement;
-    // Start is called before the first frame update
-    void Start()
+    public class Paddle : MonoBehaviour
     {
-        startPosition = transform.position;
-    }
+        public bool isPlayer1;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isPlayer1)
+        public float speed;
+        public Rigidbody rb;
+        public Vector3 startPosition;
+
+        private float movement;
+
+        public void Reset()
         {
-            movement = Input.GetAxisRaw("Vertical");
-        } else {
-            movement = Input.GetAxisRaw("Vertical2");
+            rb.velocity = Vector3.zero;
+            transform.position = startPosition;
         }
-        
-        rb.velocity = new Vector3(0, movement * speed, 0);
-    }
-    
-    public void Reset()
-    {
-        rb.velocity = Vector3.zero;
-        transform.position = startPosition;
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            startPosition = transform.position;
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+            if (isPlayer1)
+                movement = Input.GetAxisRaw("Vertical");
+            else
+                movement = Input.GetAxisRaw("Vertical2");
+
+            rb.velocity = new Vector3(0, movement * speed, 0);
+        }
     }
 }
