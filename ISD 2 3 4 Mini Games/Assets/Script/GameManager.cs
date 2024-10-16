@@ -72,8 +72,8 @@ namespace Script
                 gameToggleGroup.ActiveToggles().FirstOrDefault();
             var game = activeGameToggle?.name switch
             {
-                "PongToggle" => 1,
-                _ => 1
+                "PongToggle" => 2,
+                _ => 2
             };
 
             SceneManager.LoadScene(game);
