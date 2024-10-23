@@ -15,12 +15,20 @@ namespace Script.Pong234
 
         public GameObject player2Goal;
 
+        [Header("Player 3")] public GameObject player3Paddle;
+
+        [Header("Player 4")] public GameObject player4Paddle;
+
         [Header("Score UI")] public GameObject player1Text;
 
         public GameObject player2Text;
 
         private int _player1Score;
         private int _player2Score;
+        private int _player3Score;
+        private int _player4Score;
+
+        public Player LastHit { get; set; } = Player.None;
 
         public static GameManager Instance { get; private set; }
 
@@ -41,7 +49,10 @@ namespace Script.Pong234
         {
             player1Paddle.GetComponent<Paddle>().Reset();
             player2Paddle.GetComponent<Paddle>().Reset();
+            player3Paddle.GetComponent<Paddle>().Reset();
+            player4Paddle.GetComponent<Paddle>().Reset();
             ball.GetComponent<Ball>().Reset();
+            LastHit = Player.None;
         }
 
         // Start is called before the first frame update
@@ -54,22 +65,34 @@ namespace Script.Pong234
         {
         }
 
-        public void PlayerScored(string player)
+        public void Goal(Player player)
         {
-            if (player == "Player 1")
+            if (player == Player.None || player == LastHit)
             {
-                _player1Score++;
-                Debug.Log("Player 1 Scored");
-                player1Text.GetComponent<Text>().text =
-                    _player1Score.ToString();
+                Reset();
+                return;
             }
-            else
+
+            switch (LastHit)
             {
-                _player2Score++;
-                Debug.Log("Player 2 Scored");
-                player2Text.GetComponent<Text>().text =
-                    _player2Score.ToString();
+                case Player.P1:
+                    _player1Score++;
+                    player1Text.GetComponent<Text>().text =
+                        _player1Score.ToString();
+                    break;
+                case Player.P2:
+                    _player2Score++;
+                    player2Text.GetComponent<Text>().text =
+                        _player2Score.ToString();
+                    break;
+                case Player.P3:
+                    _player3Score++;
+                    break;
+                case Player.P4:
+                    _player4Score++;
+                    break;
             }
+
 
             Reset();
         }
