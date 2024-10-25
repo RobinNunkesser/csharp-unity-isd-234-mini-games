@@ -39,6 +39,11 @@ namespace Script
         {
         }
 
+        public void ShowCredits()
+        {
+            SceneManager.LoadSceneAsync(1);
+        }
+
         public void PlayGame()
         {
             Debug.Log("Play Game");
