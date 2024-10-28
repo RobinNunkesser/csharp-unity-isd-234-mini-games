@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,7 @@ namespace Script.Pong234
 
         [Header("Player 1")] public GameObject player1Paddle;
 
-        public GameObject player1Goal;
-
         [Header("Player 2")] public GameObject player2Paddle;
-
-        public GameObject player2Goal;
 
         [Header("Player 3")] public GameObject player3Paddle;
 
@@ -22,6 +19,8 @@ namespace Script.Pong234
         [Header("Score UI")] public GameObject player1Text;
 
         public GameObject player2Text;
+        public GameObject player3Text;
+        public GameObject player4Text;
 
         private int _player1Score;
         private int _player2Score;
@@ -47,6 +46,14 @@ namespace Script.Pong234
 
         private void Reset()
         {
+            player1Text.GetComponent<Text>().text =
+                _player1Score.ToString();
+            player2Text.GetComponent<Text>().text =
+                _player2Score.ToString();
+            player3Text.GetComponent<Text>().text =
+                _player3Score.ToString();
+            player4Text.GetComponent<Text>().text =
+                _player4Score.ToString();
             player1Paddle.GetComponent<Paddle>().Reset();
             player2Paddle.GetComponent<Paddle>().Reset();
             player3Paddle.GetComponent<Paddle>().Reset();
@@ -67,7 +74,28 @@ namespace Script.Pong234
 
         public void Goal(Player player)
         {
-            if (player == Player.None || player == LastHit)
+            switch (player)
+            {
+                case Player.P1:
+                    _player1Score--;
+                    break;
+                case Player.P2:
+                    _player2Score--;
+                    break;
+                case Player.P3:
+                    _player3Score--;
+                    break;
+                case Player.P4:
+                    _player4Score--;
+                    break;
+                case Player.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(player),
+                        player, null);
+            }
+
+            if (player == LastHit)
             {
                 Reset();
                 return;
@@ -77,13 +105,9 @@ namespace Script.Pong234
             {
                 case Player.P1:
                     _player1Score++;
-                    player1Text.GetComponent<Text>().text =
-                        _player1Score.ToString();
                     break;
                 case Player.P2:
                     _player2Score++;
-                    player2Text.GetComponent<Text>().text =
-                        _player2Score.ToString();
                     break;
                 case Player.P3:
                     _player3Score++;
@@ -91,8 +115,11 @@ namespace Script.Pong234
                 case Player.P4:
                     _player4Score++;
                     break;
+                case Player.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
-
 
             Reset();
         }

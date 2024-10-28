@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
@@ -18,5 +19,6 @@ public class Timer : MonoBehaviour
         var minutes = Mathf.FloorToInt(timeRemaining / 60);
         var seconds = Mathf.FloorToInt(timeRemaining % 60);
         timeText.text = $"{minutes:00}:{seconds:00}";
+        if (timeRemaining <= 0) SceneManager.LoadScene(0);
     }
 }
