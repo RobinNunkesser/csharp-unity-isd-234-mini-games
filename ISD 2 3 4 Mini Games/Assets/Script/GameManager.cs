@@ -41,7 +41,8 @@ namespace Script
 
         public void ShowCredits()
         {
-            SceneManager.LoadSceneAsync(1);
+            SceneManager.LoadSceneAsync((int)Scenes.Credits,
+                LoadSceneMode.Additive);
         }
 
         public void PlayGame()
@@ -77,11 +78,11 @@ namespace Script
                 gameToggleGroup.ActiveToggles().FirstOrDefault();
             var game = activeGameToggle?.name switch
             {
-                "PongToggle" => 2,
-                _ => 2
+                "PongToggle" => (int)Scenes.Pong234,
+                _ => (int)Scenes.Pong234
             };
 
-            SceneManager.LoadScene(game);
+            SceneManager.LoadSceneAsync(game, LoadSceneMode.Additive);
         }
     }
 }

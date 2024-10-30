@@ -17,7 +17,7 @@ namespace Script.Credits
 
         public void BackToMenu()
         {
-            SceneManager.LoadSceneAsync(0);
+            SceneManager.UnloadSceneAsync((int)Scenes.Credits);
         }
     }
 }

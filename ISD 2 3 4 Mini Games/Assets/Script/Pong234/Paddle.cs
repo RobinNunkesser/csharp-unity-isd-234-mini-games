@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,11 +36,40 @@ namespace Script.Pong234
             /*movement = Input.GetAxisRaw(isPlayer1 ? "Vertical" : "Vertical2");
             rb.velocity = new Vector3(0, movement * speed, 0);*/
 
-            if (!UIInputSystem.ME.GetButton(ButtonAction.Player1Fire) &&
-                !UIInputSystem.ME.GetButton(ButtonAction.Player2Fire) &&
-                !UIInputSystem.ME.GetButton(ButtonAction.Player3Fire)
-                && !UIInputSystem.ME.GetButton(ButtonAction.Player4Fire))
+            var player1Fire =
+                UIInputSystem.ME.GetButton(ButtonAction.Player1Fire);
+            var player2Fire =
+                UIInputSystem.ME.GetButton(ButtonAction.Player2Fire);
+            var player3Fire =
+                UIInputSystem.ME.GetButton(ButtonAction.Player3Fire);
+            var player4Fire =
+                UIInputSystem.ME.GetButton(ButtonAction.Player4Fire);
+
+
+            if (!player1Fire && !player2Fire && !player3Fire && !player4Fire)
                 return;
+            var hasThisPlayerFired = false;
+            switch (player)
+            {
+                case Player.P1:
+                    if (player1Fire) hasThisPlayerFired = true;
+                    break;
+                case Player.P2:
+                    if (player2Fire) hasThisPlayerFired = true;
+                    break;
+                case Player.P3:
+                    if (player3Fire) hasThisPlayerFired = true;
+                    break;
+                case Player.P4:
+                    if (player4Fire) hasThisPlayerFired = true;
+                    break;
+                case Player.None:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (!hasThisPlayerFired) return;
             up = !up;
             SetVelocity();
         }
